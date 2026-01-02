@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "data": [
+    { "id": 101, "name": "Red T-Shirt", "price": 19.99 },
+    { "id": 102, "name": "Blue Jeans", "price": 49.99 }
+  ]
+}

@@ -1,0 +1,35 @@
+name: Deploy Frontend to Azure Blob
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set storage connection string
+        run: |
+          echo "AZURE_STORAGE_CONNECTION_STRING=$(az storage account show-connection-string -g ${{ secrets.AZURE_RESOURCE_GROUP }} -n ${{ secrets.AZURE_STORAGE_ACCOUNT }} -o tsv)" >> $GITHUB_ENV
+
+      - name: Upload to $web container
+        run: |
+          az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} -s ./dist -d '$web' --overwrite
