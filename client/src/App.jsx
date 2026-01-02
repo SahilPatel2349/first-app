@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>MFE Test (React + Webpack)</h1>
+      <h1>MFE Test1 (React + Webpack)</h1>
       <div className="nav">
         <button onClick={() => setActive('users')}>Load Users MFE</button>
         <button onClick={() => setActive('products')}>Load Products MFE</button>
