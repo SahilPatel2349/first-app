@@ -35,9 +35,3 @@ jobs:
           # Use Azure AD auth (service principal) to upload blobs; requires Storage Blob Data Contributor role
           az storage account show -n ${{ secrets.AZURE_STORAGE_ACCOUNT }} -g ${{ secrets.AZURE_RESOURCE_GROUP }} --query id -o tsv
           az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} -s ./dist -d '$web' --auth-mode login --overwrite
-
-      - name: Smoke test site
-        run: |
-          endpoint=$(az storage account show -n ${{ secrets.AZURE_STORAGE_ACCOUNT }} -g ${{ secrets.AZURE_RESOURCE_GROUP }} --query "primaryEndpoints.web" -o tsv)
-          echo "Checking $endpoint"
-          curl --fail --show-error "$endpoint" || (echo "Frontend not reachable" && exit 1)

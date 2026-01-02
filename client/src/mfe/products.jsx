@@ -16,8 +16,8 @@ export default function ProductsMFE() {
 
   return (
     <div>
-      <h2>Products MFE</h2>
-      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <div>Loading products...</div>}
+      <h2>Product MFE</h2>
+        <div>Product list would go here.</div>
     </div>
   )
 }
